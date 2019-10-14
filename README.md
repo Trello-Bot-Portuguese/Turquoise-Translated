@@ -1,10 +1,10 @@
 # Turquoise
 A api universal de autenticação do discord
 
-# Requirements
+# Requerimentos
 * RethinkDB
 * RedisDB
 * NodeJS
 
-# Installation
+# Intalação
 Em Breve
