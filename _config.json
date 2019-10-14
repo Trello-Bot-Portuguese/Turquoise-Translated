@@ -1,0 +1,22 @@
+{
+  "r": {
+    "host": "",
+    "port": 28015,
+    "user": "",
+    "password": "",
+    "database": "Turquoise"
+  },
+  "r2": {
+    "host": "",
+    "port": 28015,
+    "user": "",
+    "password": "",
+    "database": "Trello"
+  },
+  "tg": {
+    "salt": "",
+    "timestampMap": "abcdefghij"
+  },
+  "port": 80,
+  "ip": ""
+}
