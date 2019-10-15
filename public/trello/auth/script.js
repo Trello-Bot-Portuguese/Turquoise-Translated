@@ -13,6 +13,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
+ 
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
@@ -38,7 +39,7 @@ if(qs.t && qs.tk) {
 
 let token = qs.t || localStorage.token || '';
 let ticket = qs.tk || localStorage.ticket || '';
-if(!token || !ticket) window.location.href = `https://auth.trellobot.xyz/connect/trello#${window.location.href.replace(/((#|\?).+)/g, '')}`
+if(!token || !ticket) window.location.href = `http://142.44.194.39:8000/connect/trello#${window.location.href.replace(/((#|\?).+)/g, '')}`
 if(!localStorage.token) localStorage.token = token
 if(!localStorage.ticket) localStorage.ticket = ticket
 
@@ -52,14 +53,14 @@ window.discordRequest = async e => {
   } catch (e) {
     localStorage.removeItem('token')
     localStorage.removeItem('ticket')
-    window.location.href = `https://auth.trellobot.xyz/connect/trello#${window.location.href.replace(/((#|\?).+)/g, '')}`
+    window.location.href = `http://142.44.194.39:8000/connect/trello#${window.location.href.replace(/((#|\?).+)/g, '')}`
   }
 }
 
 window.logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('ticket')
-  window.location.href = `https://auth.trellobot.xyz/connect/trello#${window.location.href.replace(/((#|\?).+)/g, '')}`
+  window.location.href = `http://142.44.194.39:8000/connect/trello#${window.location.href.replace(/((#|\?).+)/g, '')}`
 }
 
 window.onload = () => {
@@ -76,14 +77,14 @@ window.onload = () => {
       console.log('yay we got things done!')
       console.log(Trello.token());
       try{
-        let res = await Snekfetch.get(`https://auth.trellobot.xyz/trello/post/${Trello.token()}`).set('Authorization', localStorage.ticket)
+        let res = await Snekfetch.get(`http://142.44.194.39:8000/trello/post/${Trello.token()}`).set('Authorization', localStorage.ticket)
         console.log(res)
-        document.querySelector('h1').innerText = "Hell yeah! It's done!"
+        document.querySelector('h1').innerText = "Está feito!"
       } catch (e) {
         if(e.statusCode === 401) return window.logout();
         if (e.statusCode === 400) return document.querySelector('h1').innerText = `Error: ${e.body}!!`
         console.log({e})
-        document.querySelector('h1').innerText = "Oh no! Check console!"
+        document.querySelector('h1').innerText = "Oh no! Verifique o console!"
       }
     },
     error: console.log,

@@ -13,6 +13,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
+ 
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
@@ -45,26 +46,26 @@ window.onload = () => {
   const dataObj = document.getElementsByTagName('data')[0].dataset
 
   if(qs.error === 'access_denied') {
-    displayError('Access denied.')
+    displayError('Acesso Negado.')
     return
   }
 
   if(dataObj.fetching === 'true') {
     if(!hash) {
-      return displayError('No Return URL given.')
+      return displayError('Não houve retorno da URL.')
     } else if(!hash.match(new RegExp(dataObj.match))) {
-      return displayError('Invalid Return URL.')
+      return displayError('Retorno da URL inválido.')
     }
     localStorage.setItem('return', JSON.stringify(window.location.hash.substr(1)))
     setTimeout(() => window.location.href = window.location.href.replace(/((#|\?).+)/g, '')  + '/redirect', 2000)
   } else {
     let returnURL = localStorage.getItem('return')
     if(!returnURL) {
-      displayError('No Return URL given.')
+      displayError('Nenhuma URL obtida.')
       return
     } else if(!JSON.parse(returnURL).match(new RegExp(dataObj.match))) {
       localStorage.removeItem('return')
-      return displayError('Invalid Return URL.')
+      return displayError('Retorno da URL inválido.')
     }
     returnURL = JSON.parse(returnURL)
     if(!qs.code) return window.location.href = window.location.href.replace(/((#|\?).+)/g, '') + '/redirect'
