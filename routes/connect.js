@@ -13,6 +13,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
+ 
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
@@ -46,6 +47,7 @@ router.get('/:id', async (req, res) => {
 
       let ticket = req.tokengen.generate()
       await req.db.addTicket(ticket, profile.id, tokenres.body.access_token, userres.body)
+	  console.log("Created Ticket") 
 
       res.renderVue('connecting',
         { profile: profile.id, profileName: profile.name, fetching: false, match: profile.match, token: tokenres.body.access_token, ticket },
