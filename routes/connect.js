@@ -25,9 +25,9 @@ const router = express.Router()
 const config = require('../config.json')
 
 router.get('/:id', async (req, res) => {
-  if(!req.params.id) return res.displayError(400, 'Empty Profile ID')
+  if(!req.params.id) return res.displayError(400, 'ID do perfil vazio.')
   let profile = await req.db.getProfile(req.params.id)
-  if(!profile) return res.displayError(400, 'Invalid Profile ID')
+  if(!profile) return res.displayError(400, 'ID do perfil inválido!')
   if(!req.query.code){
     res.renderVue('connecting',
       { profile: profile.id, profileName: profile.name, fetching: true, match: profile.match, token: '', ticket: '' },
@@ -47,7 +47,7 @@ router.get('/:id', async (req, res) => {
 
       let ticket = req.tokengen.generate()
       await req.db.addTicket(ticket, profile.id, tokenres.body.access_token, userres.body)
-	  console.log("Created Ticket") 
+	  console.log("Ticket Criado") 
 
       res.renderVue('connecting',
         { profile: profile.id, profileName: profile.name, fetching: false, match: profile.match, token: tokenres.body.access_token, ticket },

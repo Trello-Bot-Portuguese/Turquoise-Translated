@@ -13,6 +13,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
@@ -24,7 +25,7 @@ module.exports = class Database extends EventEmitter {
   async connect({host = 'localhost', port, user, password, database}) {
     let err, conn = await rdb.connect({host, port, user, password})
     if(err) return this.onError(err)
-    console.log('[DB]', 'Connected')
+    console.log('[DB]', 'Conectado!')
     if(database) conn.use(database)
     conn.on('close', this.onClose.bind(this));
     conn.on('timeout', this.onTimeout.bind(this));
@@ -81,18 +82,18 @@ module.exports = class Database extends EventEmitter {
   }
 
   onError(err) {
-    console.log('[DB]', 'Error', err)
+    console.log('[DB]', 'Erro', err)
     this.emit('error', err)
   }
 
   async onClose() {
-    console.log('[DB]', 'Closed')
+    console.log('[DB]', 'Fechado!')
     this.emit('close')
     await this.reconnect()
   }
 
   async onTimeout() {
-    console.log('[DB]', 'Connection Timeout')
+    console.log('[DB]', 'Timeout na Conexão.')
     this.emit('timeout')
     await this.reconnect()
   }

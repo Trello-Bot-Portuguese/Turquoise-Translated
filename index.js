@@ -13,6 +13,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
@@ -39,18 +40,18 @@ await db2.connect(config.r2);
 
     app.get("/trello/post/:token", async (req, res) => {
         console.log("here");
-        if (!req.params.token) res.status(400).send("Please give a token")
-        const ticket = req.header("authorization");
+        if (!req.params.token) res.status(400).send("Por favor, forneça um token!")
+        const ticket = req.header("Autorização");
         console.log(ticket);
         const details = await db.getTicket(ticket);
         if (await db2.getUser(details.user) !== null){
-            return res.status(400).send("You're already authorized");
+            return res.status(400).send("Você já está autorizado!");
         }
         const result = await (
-          fetch(`https://api.trello.com/1/tokens/${req.params.token}?token=${req.params.token}&key=8ccd41c2d23f40cbdc55044c9b42c26d`)
+            fetch(`https://api.trello.com/1/tokens/${req.params.token}?token=${req.params.token}&key=${config.trelloKey}`)
             .then(res => res.json())
             .then(json => json.idMember)
-        ).catch(() => new Error("coudn't get trello user id"))
+        ).catch(() => new Error("Não foi possível obter o id do trello."))
         console.log(result);
         console.log(details);
         db2.addToken(details.user, req.params.token, result);
@@ -98,10 +99,11 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname+'/public'))
 app.use('/connect', require('./routes/connect'))
 app.use('/endpoints', require('./routes/endpoints'))
+app.use('/trello', require('./routes/trello'))
 app.use('/*', require('./routes/404'))
 
 app.listen(config.port, () => {
-  console.info(`Running on port ${config.port}`)
+  console.info(`Executando na porta ${config.port}`)
 })
 
 })()

@@ -1,14 +1,14 @@
 {
   "name": "turquoise",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Universal Discord OAuth Gate",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Yamboy1",
+  "author": "Lobo Metalurgico",
   "contributors": [
-    "Snazzah"
+    "Snazzah", "Yamboy1"
   ],
   "license": "GPL-3.0",
   "dependencies": {

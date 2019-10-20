@@ -13,6 +13,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
+
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
@@ -22,7 +23,7 @@
     <data :data-profile="profile" :data-fetching="fetching" :data-match="match" :data-token="token" :data-ticket="ticket"></data>
 
     <img :src="`/images/profiles/${profile}.png`"> <img :class="`c-icon${fetching ? ' ' : ' f'}`" src="/images/connecting.svg"> <img src="/images/discord.svg">
-    <h1 class="status">{{ fetching ? `Connecting with ${profileName}`: `Returning to ${profileName}` }}...</h1>
+    <h1 class="status">{{ fetching ? `Conectando Com ${profileName}`: `Retornando para ${profileName}` }}...</h1>
   </div>
 </template>
 
