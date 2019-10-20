@@ -111,10 +111,10 @@ router.get('/auth/script.js', (req, res) => {
         try{
           let res = await Snekfetch.get(\`${config.ip}/trello/post/\${Trello.token()}\`).set('Authorization', localStorage.ticket)
           console.log(res)
-          document.querySelector('h1').innerText = "Hell yeah! Tudo Pronto!"
+          document.querySelector('h1').innerText = "Oh yeah! Tudo Pronto!"
         } catch (e) {
           if(e.statusCode === 401) return window.logout();
-          if (e.statusCode === 400) return document.querySelector('h1').innerText = \`Error: \${e.body}!!\`
+          if (e.statusCode === 400) return document.querySelector('h1').innerText = \`Erro: \${e.body}!!\`
           console.log({e})
           document.querySelector('h1').innerText = "Oh no! Verifique o console!"
         }

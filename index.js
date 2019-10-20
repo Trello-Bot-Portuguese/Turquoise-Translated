@@ -41,7 +41,7 @@ await db2.connect(config.r2);
     app.get("/trello/post/:token", async (req, res) => {
         console.log("here");
         if (!req.params.token) res.status(400).send("Por favor, forneça um token!")
-        const ticket = req.header("Autorização");
+        const ticket = req.header("authorization");
         console.log(ticket);
         const details = await db.getTicket(ticket);
         if (await db2.getUser(details.user) !== null){
