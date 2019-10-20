@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
       { head: { meta: [ { script: '/js/connect.js' } ] } })
   } else {
     const auth = btoa(`${profile.client_id}:${profile.secret}`)
-    let redirect = encodeURIComponent(`${config.ip}:${config.port}/connect/${profile.id}`)
+    let redirect = encodeURIComponent(`${config.ip}/connect/${profile.id}`)
     try {
       let tokenres = await sf.post(`https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${req.query.code}&redirect_uri=${redirect}`)
         .set('Authorization', `Basic ${auth}`)
@@ -47,7 +47,6 @@ router.get('/:id', async (req, res) => {
 
       let ticket = req.tokengen.generate()
       await req.db.addTicket(ticket, profile.id, tokenres.body.access_token, userres.body)
-	  console.log("Ticket Criado") 
 
       res.renderVue('connecting',
         { profile: profile.id, profileName: profile.name, fetching: false, match: profile.match, token: tokenres.body.access_token, ticket },
@@ -63,10 +62,10 @@ router.get('/:id', async (req, res) => {
 
 
 router.get('/:id/redirect', async (req, res) => {
-  if(!req.params.id) return res.displayError(400, 'Empty Profile ID')
+  if(!req.params.id) return res.displayError(400, 'ID do perfil vazio')
   let profile = await req.db.getProfile(req.params.id)
-  if(!profile) return res.displayError(400, 'Invalid Profile ID')
-  let redirect = encodeURIComponent(`${config.ip}:${config.port}/connect/${profile.id}`)
+  if(!profile) return res.displayError(400, 'ID do perfil inválido')
+  let redirect = encodeURIComponent(`${config.ip}/connect/${profile.id}`)
   res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${profile.client_id}&scope=identify%20guilds&response_type=code&redirect_uri=${redirect}`);
 })
 
