@@ -8,7 +8,8 @@
   },
   "author": "Lobo Metalurgico",
   "contributors": [
-    "Snazzah", "Yamboy1"
+    "Snazzah",
+    "Yamboy1"
   ],
   "license": "GPL-3.0",
   "dependencies": {
